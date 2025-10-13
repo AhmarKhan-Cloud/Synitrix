@@ -35,10 +35,10 @@
   --text-primary: #111827;
   --text-secondary: #374151;
   --text-tertiary: #6b7280;
-  --accent-primary: #374151;
-  --accent-secondary: #6b7280;
-  --border-color: rgba(107, 114, 128, 0.3);
-  --shadow-color: rgba(107, 114, 128, 0.3);
+   --accent-primary: #39ff14;
+  --accent-secondary: #ffff00;
+  --border-color: rgba(57, 255, 20, 0.3);
+  --shadow-color: rgba(57, 255, 20, 0.3);
 }
 
 @layer base {
