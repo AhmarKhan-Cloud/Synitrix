@@ -85,7 +85,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'}`}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#d4e00d] rounded-full blur-xl"></div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className={`text-4xl font-bold text-center theme-accent-secondary mb-4`}>
             Our Services
@@ -155,7 +159,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'}`}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#d4e00d] rounded-full blur-xl"></div>
+        </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold theme-accent-primary mb-6">
             Ready to Start Your Project?

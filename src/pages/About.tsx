@@ -1,5 +1,5 @@
 import { Briefcase, Award, Users, Target } from 'lucide-react';
-import { ThemeProvider, useTheme } from '../lib/ThemeContext'; // Adjust path as needed
+import { ThemeProvider, useTheme } from '../lib/ThemeContext'; 
 
 export default function About() {
   const { theme } = useTheme();
@@ -33,19 +33,19 @@ export default function About() {
     {
       client: 'Michael Roberts',
       company: 'TechFlow Solutions',
-      text: 'Synitrix transformed our digital presence completely. Their team delivered a stunning website and mobile app that exceeded our expectations. The attention to detail and innovative approach set them apart.',
+      text: 'Synitix transformed our digital presence completely. Their team delivered a stunning website and mobile app that exceeded our expectations. The attention to detail and innovative approach set them apart.',
       rating: 5,
     },
     {
       client: 'Emily Watson',
       company: 'GreenLeaf Industries',
-      text: 'Working with Synitrix was a game-changer for our business. They understood our vision and brought it to life with exceptional UI/UX design. Highly recommend their services!',
+      text: 'Working with Synitix was a game-changer for our business. They understood our vision and brought it to life with exceptional UI/UX design. Highly recommend their services!',
       rating: 5,
     },
     {
       client: 'David Park',
       company: 'NextGen Healthcare',
-      text: 'The professionalism and technical expertise of the Synitrix team is unmatched. They delivered our healthcare platform on time and within budget, with features that delighted our users.',
+      text: 'The professionalism and technical expertise of the Synitix team is unmatched. They delivered our healthcare platform on time and within budget, with features that delighted our users.',
       rating: 5,
     },
   ];
@@ -97,7 +97,11 @@ export default function About() {
         </div>
       </section>
 
-      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'}`}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#d4e00d] rounded-full blur-xl"></div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -120,7 +124,7 @@ export default function About() {
             Leadership Team
           </h2>
           <p className={`text-center ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'} mb-12 max-w-2xl mx-auto`}>
-            Meet the visionaries driving Synitrix forward
+            Meet the visionaries driving Synitix forward
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -149,7 +153,11 @@ export default function About() {
         </div>
       </section>
 
-      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'}`}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#d4e00d] rounded-full blur-xl"></div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className={`text-4xl font-bold text-center theme-accent-secondary mb-4`}>
             Client Testimonials
