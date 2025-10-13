@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { ThemeProvider, useTheme } from '../lib/ThemeContext'; // Adjust path as needed
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -62,22 +64,23 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-md bg-gradient-to-br from-gray-900 to-black border border-[#39ff14]/30 rounded-2xl shadow-[0_0_50px_rgba(57,255,20,0.3)] p-8">
+     <ThemeProvider>
+    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${theme === 'white' ? 'bg-white/80' : 'bg-black/80'} backdrop-blur-sm`}>
+      <div className={`relative w-full max-w-md theme-bg-secondary border theme-border rounded-2xl shadow-[0_0_15px_var(--shadow-color)] p-8`}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-[#39ff14] transition-colors"
+          className={`absolute top-4 right-4 ${theme === 'white' ? 'text-theme-text-tertiary' : 'text-gray-400'} hover:text-theme-accent-primary transition-colors`}
         >
           <X size={24} />
         </button>
 
-        <h2 className="text-3xl font-bold text-[#39ff14] mb-6 drop-shadow-[0_0_10px_#39ff14]">
+        <h2 className={`text-3xl font-bold theme-accent-primary mb-6`}>
           Contact Us
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="name" className={`block text-sm font-medium ${theme === 'white' ? 'theme-text-primary' : 'text-gray-300'} mb-1`}>
               Name
             </label>
             <input
@@ -86,12 +89,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 bg-black/50 border border-[#39ff14]/30 rounded-lg text-white focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all"
+              className={`w-full px-4 py-2 ${theme === 'white' ? 'bg-gray-100' : 'bg-black/50'} border theme-border rounded-lg ${theme === 'white' ? 'text-theme-text-primary' : 'text-white'} focus:outline-none focus:border-theme-accent-primary focus:ring-1 focus:ring-theme-accent-primary transition-all`}
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="email" className={`block text-sm font-medium ${theme === 'white' ? 'theme-text-primary' : 'text-gray-300'} mb-1`}>
               Email
             </label>
             <input
@@ -100,12 +103,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 bg-black/50 border border-[#39ff14]/30 rounded-lg text-white focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all"
+              className={`w-full px-4 py-2 ${theme === 'white' ? 'bg-gray-100' : 'bg-black/50'} border theme-border rounded-lg ${theme === 'white' ? 'text-theme-text-primary' : 'text-white'} focus:outline-none focus:border-theme-accent-primary focus:ring-1 focus:ring-theme-accent-primary transition-all`}
             />
           </div>
 
           <div>
-            <label htmlFor="contact" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="contact" className={`block text-sm font-medium ${theme === 'white' ? 'theme-text-primary' : 'text-gray-300'} mb-1`}>
               Contact Number
             </label>
             <input
@@ -114,12 +117,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               required
               value={formData.contact_number}
               onChange={(e) => setFormData({ ...formData, contact_number: e.target.value })}
-              className="w-full px-4 py-2 bg-black/50 border border-[#39ff14]/30 rounded-lg text-white focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all"
+              className={`w-full px-4 py-2 ${theme === 'white' ? 'bg-gray-100' : 'bg-black/50'} border theme-border rounded-lg ${theme === 'white' ? 'text-theme-text-primary' : 'text-white'} focus:outline-none focus:border-theme-accent-primary focus:ring-1 focus:ring-theme-accent-primary transition-all`}
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="message" className={`block text-sm font-medium ${theme === 'white' ? 'theme-text-primary' : 'text-gray-300'} mb-1`}>
               Message
             </label>
             <textarea
@@ -128,12 +131,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               rows={4}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-2 bg-black/50 border border-[#39ff14]/30 rounded-lg text-white focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all resize-none"
+              className={`w-full px-4 py-2 ${theme === 'white' ? 'bg-gray-100' : 'bg-black/50'} border theme-border rounded-lg ${theme === 'white' ? 'text-theme-text-primary' : 'text-white'} focus:outline-none focus:border-theme-accent-primary focus:ring-1 focus:ring-theme-accent-primary transition-all resize-none`}
             />
           </div>
 
           {submitStatus === 'success' && (
-            <div className="text-[#39ff14] text-sm text-center">
+            <div className={`text-theme-accent-primary text-sm text-center`}>
               Message sent successfully!
             </div>
           )}
@@ -147,12 +150,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 bg-[#39ff14] text-black font-semibold rounded-lg hover:bg-[#ffff00] transition-all duration-300 shadow-[0_0_20px_#39ff14] hover:shadow-[0_0_25px_#ffff00] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-theme-accent-primary text-theme-text-primary font-semibold rounded-lg hover:bg-theme-accent-secondary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>
     </div>
+     </ThemeProvider>
   );
 }
+

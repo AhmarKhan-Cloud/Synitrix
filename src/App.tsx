@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { ThemeProvider } from './lib/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
@@ -19,20 +20,22 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="min-h-screen bg-black text-white">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-        </Routes>
-        <Footer />
-        <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
-        <Chatbot />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="min-h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+          </Routes>
+          <Footer />
+          <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
+          <Chatbot />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

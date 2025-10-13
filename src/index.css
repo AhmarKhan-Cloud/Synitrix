@@ -2,9 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #111827;
+  --bg-tertiary: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --accent-primary: #39ff14;
+  --accent-secondary: #ffff00;
+  --border-color: rgba(57, 255, 20, 0.3);
+  --shadow-color: rgba(57, 255, 20, 0.3);
+}
+
+[data-theme="default"] {
+  --bg-primary: #000000;
+  --bg-secondary: #111827;
+  --bg-tertiary: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --accent-primary: #39ff14;
+  --accent-secondary: #ffff00;
+  --border-color: rgba(57, 255, 20, 0.3);
+  --shadow-color: rgba(57, 255, 20, 0.3);
+}
+
+[data-theme="white"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-tertiary: #6b7280;
+  --accent-primary: #374151;
+  --accent-secondary: #6b7280;
+  --border-color: rgba(107, 114, 128, 0.3);
+  --shadow-color: rgba(107, 114, 128, 0.3);
+}
+
 @layer base {
   body {
-    @apply bg-black text-white;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  nav {
+    background-color: var(--bg-primary);
   }
 }
 
@@ -15,5 +59,45 @@
 
   .delay-1000 {
     animation-delay: 1s;
+  }
+
+  .theme-bg-primary {
+    background-color: var(--bg-primary);
+  }
+
+  .theme-bg-secondary {
+    background-color: var(--bg-secondary);
+  }
+
+  .theme-bg-tertiary {
+    background-color: var(--bg-tertiary);
+  }
+
+  .theme-text-primary {
+    color: var(--text-primary);
+  }
+
+  .theme-text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .theme-text-tertiary {
+    color: var(--text-tertiary);
+  }
+
+  .theme-accent-primary {
+    color: var(--accent-primary);
+  }
+
+  .theme-accent-secondary {
+    color: var(--accent-secondary);
+  }
+
+  .theme-border {
+    border-color: var(--border-color);
+  }
+
+  .theme-shadow {
+    box-shadow: 0 0 30px var(--shadow-color);
   }
 }

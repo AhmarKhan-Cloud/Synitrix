@@ -1,6 +1,9 @@
 import { Briefcase, Award, Users, Target } from 'lucide-react';
+import { ThemeProvider, useTheme } from '../lib/ThemeContext'; // Adjust path as needed
 
 export default function About() {
+  const { theme } = useTheme();
+
   const team = [
     {
       name: 'John Mitchell',
@@ -55,35 +58,36 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-black pt-16">
-      <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+    <ThemeProvider>
+    <div className={`min-h-screen ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'} pt-16`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'} relative overflow-hidden`}>
+        <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#ffff00] rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-6xl font-bold text-center text-[#39ff14] mb-6 drop-shadow-[0_0_20px_#39ff14]">
-            About Synitrix
+          <h1 className={`text-5xl md:text-6xl font-bold text-center theme-accent-primary mb-6`}>
+            About Synitix
           </h1>
-          <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto mb-12">
+          <p className={`text-xl ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} text-center max-w-3xl mx-auto mb-12`}>
             Pioneering Digital Innovation Since 2015
           </p>
 
-          <div className="bg-gradient-to-br from-gray-900 to-black p-8 md:p-12 rounded-2xl border border-[#39ff14]/30 shadow-[0_0_50px_rgba(57,255,20,0.2)]">
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              Synitrix is a cutting-edge technology company dedicated to transforming businesses
+          <div className={`bg-theme-bg-secondary p-8 md:p-12 rounded-2xl border theme-border shadow-[0_0_15px_var(--shadow-color)]`}>
+            <p className={`text-lg ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} leading-relaxed mb-6`}>
+              Synitix is a cutting-edge technology company dedicated to transforming businesses
               through innovative digital solutions. Founded in 2015, we've grown from a small team
               of passionate developers into a full-service digital agency serving clients
               worldwide.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
+            <p className={`text-lg ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} leading-relaxed mb-6`}>
               Our mission is to bridge the gap between technology and business objectives,
               delivering solutions that not only meet technical requirements but also drive real
               business value. We combine creative design thinking with robust engineering
               practices to create digital experiences that users love.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className={`text-lg ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} leading-relaxed`}>
               With expertise spanning web development, mobile applications, graphic design, and
               UI/UX, we offer comprehensive services that cover every aspect of your digital
               journey. Our commitment to excellence and client satisfaction has made us a trusted
@@ -93,29 +97,29 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-gray-900 to-black p-6 rounded-xl border border-[#39ff14]/30 text-center hover:border-[#ffff00] transition-all duration-300 hover:shadow-[0_0_30px_rgba(57,255,20,0.3)]"
+                className={`bg-theme-bg-secondary p-6 rounded-xl border theme-border text-center hover:border-theme-accent-primary transition-all duration-300 hover:shadow-[0_0_15px_var(--shadow-color)]`}
               >
-                <div className="text-[#39ff14] flex justify-center mb-4">{stat.icon}</div>
-                <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
+                <div className="theme-accent-primary flex justify-center mb-4">{stat.icon}</div>
+                <div className={`text-3xl font-bold ${theme === 'white' ? 'theme-text-primary' : 'text-white'} mb-2`}>{stat.value}</div>
+                <div className={`text-gray-400 text-sm ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'}`}>{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-tertiary'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#ffff00] mb-4 drop-shadow-[0_0_15px_#ffff00]">
+          <h2 className={`text-4xl font-bold text-center theme-accent-secondary mb-4`}>
             Leadership Team
           </h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+          <p className={`text-center ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'} mb-12 max-w-2xl mx-auto`}>
             Meet the visionaries driving Synitrix forward
           </p>
 
@@ -123,19 +127,19 @@ export default function About() {
             {team.map((member, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-[#39ff14]/30 hover:border-[#39ff14] transition-all duration-300 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+                className={`bg-theme-bg-secondary p-8 rounded-2xl border theme-border hover:border-theme-accent-primary transition-all duration-300 hover:shadow-[0_0_15px_var(--shadow-color)]`}
               >
                 <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-[#39ff14] mb-1">{member.name}</h3>
-                  <p className="text-[#ffff00] font-semibold">{member.role}</p>
+                  <h3 className={`text-2xl font-bold theme-accent-primary mb-1`}>{member.name}</h3>
+                  <p className={`text-theme-accent-secondary font-semibold`}>{member.role}</p>
                 </div>
-                <p className="text-gray-300 mb-6 leading-relaxed">{member.description}</p>
+                <p className={`text-gray-300 mb-6 leading-relaxed ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'}`}>{member.description}</p>
                 <div className="space-y-2">
-                  <h4 className="text-white font-semibold text-sm mb-3">Key Achievements:</h4>
+                  <h4 className={`text-white font-semibold text-sm mb-3 ${theme === 'white' ? 'theme-text-primary' : 'text-white'}`}>Key Achievements:</h4>
                   {member.achievements.map((achievement, i) => (
                     <div key={i} className="flex items-start space-x-2">
-                      <div className="w-1.5 h-1.5 bg-[#39ff14] rounded-full mt-2"></div>
-                      <p className="text-gray-400 text-sm">{achievement}</p>
+                      <div className="w-1.5 h-1.5 bg-theme-accent-primary rounded-full mt-2"></div>
+                      <p className={`text-gray-400 text-sm ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'}`}>{achievement}</p>
                     </div>
                   ))}
                 </div>
@@ -145,12 +149,12 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#ffff00] mb-4 drop-shadow-[0_0_15px_#ffff00]">
+          <h2 className={`text-4xl font-bold text-center theme-accent-secondary mb-4`}>
             Client Testimonials
           </h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+          <p className={`text-center ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'} mb-12 max-w-2xl mx-auto`}>
             What our clients say about working with us
           </p>
 
@@ -158,19 +162,19 @@ export default function About() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-xl border border-[#39ff14]/30 hover:border-[#ffff00] transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,0,0.3)]"
+                className={`bg-theme-bg-secondary p-8 rounded-xl border theme-border hover:border-theme-accent-secondary transition-all duration-300 hover:shadow-[0_0_15px_var(--shadow-color)]`}
               >
                 <div className="flex space-x-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-[#ffff00] text-xl">
+                    <span key={i} className="text-theme-accent-secondary text-xl">
                       ★
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-300 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
+                <p className={`text-gray-300 mb-6 italic leading-relaxed ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'}`}>{`"${testimonial.text}"`}</p>
                 <div>
-                  <p className="text-white font-semibold">{testimonial.client}</p>
-                  <p className="text-[#39ff14] text-sm">{testimonial.company}</p>
+                  <p className={`text-white font-semibold ${theme === 'white' ? 'theme-text-primary' : 'text-white'}`}>{testimonial.client}</p>
+                  <p className="theme-accent-primary text-sm">{testimonial.company}</p>
                 </div>
               </div>
             ))}
@@ -178,5 +182,7 @@ export default function About() {
         </div>
       </section>
     </div>
+     </ThemeProvider>
   );
 }
+

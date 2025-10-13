@@ -1,0 +1,2 @@
+- [x] Update ThemeContext.tsx to cycle through 'light-green', 'green', 'yellow', 'white' themes and set initial theme to 'white'
+- [x] Test the theme toggle functionality by running the app and clicking the toggle button

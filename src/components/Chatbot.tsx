@@ -1,8 +1,10 @@
 import { MessageCircle, X, Send } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
+import { ThemeProvider, useTheme } from '../lib/ThemeContext'; // Adjust path as needed
 
 export default function Chatbot() {
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; sender: 'user' | 'bot' }>>([
@@ -60,17 +62,18 @@ export default function Chatbot() {
   };
 
   return (
+     <ThemeProvider>
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 p-4 bg-[#39ff14] text-black rounded-full shadow-[0_0_30px_#39ff14] hover:shadow-[0_0_40px_#39ff14] transition-all duration-300 hover:scale-110"
+        className="fixed bottom-6 right-6 z-50 p-4 bg-theme-accent-primary text-theme-text-primary rounded-full hover:bg-theme-accent-secondary transition-all duration-300 hover:scale-110"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 h-[500px] bg-gradient-to-br from-gray-900 to-black border border-[#39ff14]/30 rounded-2xl shadow-[0_0_50px_rgba(57,255,20,0.3)] flex flex-col">
-          <div className="bg-[#39ff14] text-black px-6 py-4 rounded-t-2xl">
+        <div className={`fixed bottom-24 right-6 z-50 w-80 sm:w-96 h-[500px] theme-bg-secondary border theme-border rounded-2xl shadow-[0_0_15px_var(--shadow-color)] flex flex-col`}>
+          <div className="bg-theme-accent-primary text-theme-text-primary px-6 py-4 rounded-t-2xl">
             <h3 className="font-bold text-lg">Synitrix Support</h3>
             <p className="text-xs opacity-80">We're here to help</p>
           </div>
@@ -84,8 +87,8 @@ export default function Chatbot() {
                 <div
                   className={`max-w-[80%] px-4 py-2 rounded-lg ${
                     msg.sender === 'user'
-                      ? 'bg-[#39ff14] text-black'
-                      : 'bg-gray-800 text-gray-200 border border-[#39ff14]/20'
+                      ? 'bg-theme-accent-primary text-theme-text-primary'
+                      : `${theme === 'white' ? 'bg-theme-bg-tertiary' : 'bg-gray-800'} border theme-border text-${theme === 'white' ? 'theme-text-primary' : 'text-gray-200'}`
                   }`}
                 >
                   <p className="text-sm">{msg.text}</p>
@@ -95,27 +98,30 @@ export default function Chatbot() {
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className="p-4 border-t border-[#39ff14]/30">
+          <form onSubmit={handleSubmit} className="p-4 border-t theme-border">
             <div className="flex space-x-2">
               <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your urgent query..."
-                className="flex-1 px-4 py-2 bg-black/50 border border-[#39ff14]/30 rounded-lg text-white text-sm focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all"
+                className={`flex-1 px-4 py-2 ${theme === 'white' ? 'bg-theme-bg-tertiary' : 'bg-black/50'} border theme-border rounded-lg ${theme === 'white' ? 'text-theme-text-primary' : 'text-white'} text-sm focus:outline-none focus:border-theme-accent-primary focus:ring-1 focus:ring-theme-accent-primary transition-all`}
                 disabled={isSubmitting}
               />
               <button
                 type="submit"
                 disabled={isSubmitting || !message.trim()}
-                className="p-2 bg-[#39ff14] text-black rounded-lg hover:bg-[#ffff00] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 bg-theme-accent-primary text-theme-text-primary rounded-lg hover:bg-theme-accent-secondary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={20} />
               </button>
             </div>
           </form>
         </div>
+       
       )}
     </>
+     </ThemeProvider>
   );
 }
+

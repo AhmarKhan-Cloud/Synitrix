@@ -1,6 +1,9 @@
 import { Code, Smartphone, Palette, Layout, Globe, Database, Cloud, Lock } from 'lucide-react';
+import { ThemeProvider, useTheme } from '../lib/ThemeContext'; // Adjust path as needed
 
 export default function Services() {
+  const { theme } = useTheme();
+
   const mainServices = [
     {
       icon: <Code className="w-12 h-12" />,
@@ -84,25 +87,26 @@ export default function Services() {
   ];
 
   return (
-    <div className="min-h-screen bg-black pt-16">
-      <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#ffff00] rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <ThemeProvider>
+    <div className={`min-h-screen ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'} pt-16`}>
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-primary'} relative overflow-hidden`}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#39ff14] rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#d4e00d] rounded-full blur-xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-6xl font-bold text-center text-[#39ff14] mb-6 drop-shadow-[0_0_20px_#39ff14]">
+          <h1 className={`text-5xl md:text-6xl font-bold text-center theme-accent-primary mb-6`}>
             Our Services
           </h1>
-          <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto">
+          <p className={`text-xl ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} text-center max-w-3xl mx-auto`}>
             Comprehensive digital solutions tailored to transform your business and exceed your
             expectations
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-16">
             {mainServices.map((service, index) => (
@@ -113,22 +117,22 @@ export default function Services() {
                 } gap-12 items-center`}
               >
                 <div className="flex-1">
-                  <div className="bg-gradient-to-br from-gray-900 to-black p-12 rounded-2xl border border-[#39ff14]/30 hover:border-[#39ff14] transition-all duration-300 hover:shadow-[0_0_50px_rgba(57,255,20,0.3)]">
-                    <div className="text-[#39ff14] mb-6">{service.icon}</div>
-                    <h2 className="text-3xl font-bold text-white mb-4">{service.title}</h2>
-                    <p className="text-gray-300 mb-6 leading-relaxed">{service.description}</p>
+                  <div className={`bg-theme-bg-secondary p-12 rounded-2xl border theme-border hover:border-theme-accent-primary transition-all duration-300 hover:shadow-[0_0_15px_var(--shadow-color)]`}>
+                    <div className="theme-accent-primary mb-6">{service.icon}</div>
+                    <h2 className={`text-3xl font-bold ${theme === 'white' ? 'theme-text-primary' : 'text-white'} mb-4`}>{service.title}</h2>
+                    <p className={`text-gray-300 mb-6 leading-relaxed ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'}`}>{service.description}</p>
                     <div className="space-y-3">
                       {service.features.map((feature, i) => (
                         <div key={i} className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-[#ffff00] rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-gray-400">{feature}</p>
+                          <div className="w-2 h-2 bg-theme-accent-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <p className={`text-gray-400 text-sm ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'}`}>{feature}</p>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
                 <div className="flex-1 flex justify-center">
-                  <div className="w-64 h-64 bg-gradient-to-br from-[#39ff14]/20 to-[#ffff00]/20 rounded-full blur-2xl"></div>
+                  <div className={`w-64 h-64 bg-gradient-to-br from-[rgba(169,214,191,0.2)] to-[rgba(212,224,13,0.2)] rounded-full blur-xl`}></div>
                 </div>
               </div>
             ))}
@@ -136,12 +140,12 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-tertiary' : 'theme-bg-tertiary'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#ffff00] mb-4 drop-shadow-[0_0_15px_#ffff00]">
+          <h2 className={`text-4xl font-bold text-center theme-accent-secondary mb-4`}>
             Additional Services
           </h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+          <p className={`text-center ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'} mb-12 max-w-2xl mx-auto`}>
             Expand your capabilities with our complementary offerings
           </p>
 
@@ -149,25 +153,25 @@ export default function Services() {
             {additionalServices.map((service, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-gray-900 to-black p-6 rounded-xl border border-[#39ff14]/30 hover:border-[#ffff00] transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,0,0.3)] hover:-translate-y-2 group"
+                className={`bg-theme-bg-secondary p-6 rounded-xl border theme-border hover:border-theme-accent-secondary transition-all duration-300 hover:shadow-[0_0_15px_var(--shadow-color)] hover:-translate-y-2 group`}
               >
-                <div className="text-[#39ff14] mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="theme-accent-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-                <p className="text-gray-400 text-sm">{service.description}</p>
+                <h3 className={`text-xl font-semibold ${theme === 'white' ? 'theme-text-primary' : 'text-white'} mb-2`}>{service.title}</h3>
+                <p className={`text-gray-400 text-sm ${theme === 'white' ? 'theme-text-tertiary' : 'text-gray-400'}`}>{service.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <section className={`py-20 ${theme === 'white' ? 'theme-bg-secondary' : 'theme-bg-secondary'}`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-[#39ff14] mb-6 drop-shadow-[0_0_15px_#39ff14]">
+          <h2 className={`text-4xl font-bold theme-accent-primary mb-6`}>
             Ready to Elevate Your Digital Presence?
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
+          <p className={`text-xl ${theme === 'white' ? 'theme-text-secondary' : 'text-gray-300'} mb-8`}>
             Let's discuss how our services can help achieve your business goals
           </p>
           <button
@@ -175,12 +179,14 @@ export default function Services() {
               const event = new CustomEvent('openContactModal');
               window.dispatchEvent(event);
             }}
-            className="px-10 py-4 bg-[#ffff00] text-black font-bold rounded-lg hover:bg-[#39ff14] transition-all duration-300 shadow-[0_0_30px_#ffff00] hover:shadow-[0_0_40px_#39ff14] hover:scale-105"
+            className="px-10 py-4 bg-theme-accent-secondary text-theme-text-primary font-bold rounded-lg hover:bg-theme-accent-primary transition-all duration-300 hover:scale-105"
           >
             Start Your Project
           </button>
         </div>
       </section>
     </div>
+    </ThemeProvider>
   );
 }
+
