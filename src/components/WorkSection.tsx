@@ -13,13 +13,19 @@ interface WorkSectionProps {
 export default function WorkSection({ setOpenProject, limit }: WorkSectionProps) {
   return (
     <section id="work" className="section work">
-      <div className="section-heading">
-        <p className="eyebrow">03 / Selected work</p>
-        <h2>
+      <motion.div
+        className="section-heading"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ staggerChildren: 0.12 }}
+      >
+        <motion.p variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }} className="eyebrow">03 / Selected work</motion.p>
+        <motion.h2 variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}>
           Built for <em>real</em> momentum.
-        </h2>
-        <p>Every collaboration begins with a problem worth solving.</p>
-      </div>
+        </motion.h2>
+        <motion.p variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}>Every collaboration begins with a problem worth solving.</motion.p>
+      </motion.div>
       <div className="project-grid">
         {projectsData.slice(0, limit).map((p, i) => (
           <motion.button

@@ -79,6 +79,13 @@ ALTER TABLE chat_messages ENABLE ROW LEVEL SECURITY;
 
 -- Policies for contact_submissions table
 
+-- Make this migration safe to retry when a previous run created policies
+-- before the migration could be recorded as complete.
+DROP POLICY IF EXISTS "Anyone can submit contact forms" ON contact_submissions;
+DROP POLICY IF EXISTS "Authenticated users can view contact submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Authenticated users can update contact submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Authenticated users can delete contact submissions" ON contact_submissions;
+
 -- Allow anonymous users to insert contact submissions
 CREATE POLICY "Anyone can submit contact forms"
   ON contact_submissions
@@ -109,6 +116,11 @@ CREATE POLICY "Authenticated users can delete contact submissions"
   USING (true);
 
 -- Policies for chat_messages table
+
+DROP POLICY IF EXISTS "Anyone can submit chat messages" ON chat_messages;
+DROP POLICY IF EXISTS "Authenticated users can view chat messages" ON chat_messages;
+DROP POLICY IF EXISTS "Authenticated users can update chat messages" ON chat_messages;
+DROP POLICY IF EXISTS "Authenticated users can delete chat messages" ON chat_messages;
 
 -- Allow anonymous users to insert chat messages
 CREATE POLICY "Anyone can submit chat messages"

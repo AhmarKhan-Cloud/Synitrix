@@ -35,7 +35,8 @@ export default function ContactSection() {
 
       if (error) throw error;
 
-      await sendContactEmail({ name, email, subject, message });
+      const delivery = await sendContactEmail({ name, email, subject, message });
+      if (!delivery.success) throw new Error(delivery.error);
 
       setSent(true);
       form.reset();

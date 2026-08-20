@@ -1,0 +1,4 @@
+[functions.send-email]
+# The contact form is intentionally public. The function validates the request,
+# and its Resend credential remains a Supabase-only secret.
+verify_jwt = false
