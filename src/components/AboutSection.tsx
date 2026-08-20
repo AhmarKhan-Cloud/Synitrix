@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const fade = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } };
 
@@ -21,11 +22,14 @@ export default function AboutSection() {
         </motion.h2>
         <motion.div variants={fade} className="about-copy">
           <p>
-            We’re a technology partner for teams that value clarity over noise. From discovery and interface design to data architecture and AI automation, we build digital systems that are practical, measurable, and ready to grow.
+            We’re a technology partner for teams that value clarity over noise.
+            From discovery and interface design to data architecture and AI
+            automation, we build digital systems that are practical, measurable,
+            and ready to grow.
           </p>
-          <a className="text-link" href="#contact">
-            Meet the team <ArrowUpRight size={16} />
-          </a>
+          <Link className="text-link" to="/about">
+            Explore more about us <ArrowUpRight size={16} />
+          </Link>
         </motion.div>
       </motion.div>
       <div className="stat-row">

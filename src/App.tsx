@@ -11,6 +11,9 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import ProjectModal from './components/ProjectModal';
 import { reviewsData } from './data/portfolioData';
+import { Route, Routes } from 'react-router-dom';
+import AboutPage from './components/AboutPage';
+import ProjectsPage from './components/ProjectsPage';
 
 export default function App() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
@@ -69,18 +72,11 @@ export default function App() {
         setMenuOpen={setMenuOpen}
         go={go}
       />
-
-      <Hero go={go} />
-
-      <AboutSection />
-
-      <ExpertiseSection />
-
-      <WorkSection setOpenProject={setOpenProject} />
-
-      <TestimonialsSection review={review} setReview={setReview} />
-
-      <ContactSection />
+      <Routes>
+        <Route path="/" element={<div className="home-page"><Hero go={go} /><AboutSection /><ExpertiseSection /><WorkSection setOpenProject={setOpenProject} limit={2} /><TestimonialsSection review={review} setReview={setReview} /><ContactSection /></div>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/projects" element={<ProjectsPage setOpenProject={setOpenProject} />} />
+      </Routes>
 
       <Footer />
 

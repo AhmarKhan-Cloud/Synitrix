@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles, X } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectModalProps {
@@ -28,10 +28,7 @@ export default function ProjectModal({ openProject, onClose }: ProjectModalProps
             <button className="close-modal" onClick={onClose}>
               <X />
             </button>
-            <div className="modal-accent">
-              <Sparkles />
-              <span>{openProject.kind}</span>
-            </div>
+            <div className="modal-accent"><span>{openProject.kind}</span></div>
             <h2>{openProject.title}</h2>
             <p className="modal-lead">{openProject.overview}</p>
             <div className="modal-columns">

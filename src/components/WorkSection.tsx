@@ -3,12 +3,14 @@ import { ArrowUpRight } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
 import { Project } from '../types';
 import ProjectVisual from './ProjectVisual';
+import { Link } from 'react-router-dom';
 
 interface WorkSectionProps {
   setOpenProject: (project: Project | null) => void;
+  limit?: number;
 }
 
-export default function WorkSection({ setOpenProject }: WorkSectionProps) {
+export default function WorkSection({ setOpenProject, limit }: WorkSectionProps) {
   return (
     <section id="work" className="section work">
       <div className="section-heading">
@@ -19,7 +21,7 @@ export default function WorkSection({ setOpenProject }: WorkSectionProps) {
         <p>Every collaboration begins with a problem worth solving.</p>
       </div>
       <div className="project-grid">
-        {projectsData.map((p, i) => (
+        {projectsData.slice(0, limit).map((p, i) => (
           <motion.button
             key={p.title}
             className="project-card"
@@ -44,6 +46,11 @@ export default function WorkSection({ setOpenProject }: WorkSectionProps) {
           </motion.button>
         ))}
       </div>
+      {limit && projectsData.length > limit && (
+        <div className="work-all-link">
+          <Link className="button secondary" to="/projects">View all projects <ArrowUpRight size={17} /></Link>
+        </div>
+      )}
     </section>
   );
 }
