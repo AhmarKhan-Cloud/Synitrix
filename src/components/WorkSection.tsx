@@ -37,7 +37,7 @@ export default function WorkSection({ setOpenProject, limit }: WorkSectionProps)
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
           >
-            <ProjectVisual type={p.visual} />
+            <ProjectVisual type={p.visual} image={p.image} alt={`${p.title} project preview`} />
             <div className="project-meta">
               <span>{p.kind}</span>
               <ArrowUpRight size={18} />

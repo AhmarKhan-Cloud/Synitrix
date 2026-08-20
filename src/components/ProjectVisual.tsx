@@ -1,13 +1,15 @@
-export default function ProjectVisual({ type }: { type: string }) {
+interface ProjectVisualProps {
+  type: string;
+  image: string;
+  alt: string;
+}
+
+export default function ProjectVisual({ type, image, alt }: ProjectVisualProps) {
+  const imageUrl = `${import.meta.env.BASE_URL}${image}`;
+
   return (
     <div className={`project-visual ${type}`}>
-      <div className="visual-orb" />
-      <div className="visual-window">
-        <i />
-        <i />
-        <i />
-        <b />
-      </div>
+      <img src={imageUrl} alt={alt} loading="lazy" />
     </div>
   );
 }

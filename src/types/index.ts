@@ -9,6 +9,7 @@ export interface Project {
   components: string[];
   features: string[];
   visual: string;
+  image: string;
   url?: string;
 }
 
