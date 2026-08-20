@@ -88,13 +88,13 @@ export const reviewsData: Review[] = [
     name: 'Mustapha Yakubu',
     role: 'CEO, Careerli',
     project: 'AI resume platform',
-    quote: 'Working with Synitrix was pleasant from start to finish. They made thoughtful suggestions, stayed patient through our delays, and were exceptionally clear in their communication.',
+    quote: 'Working with Synitix was pleasant from start to finish. They made thoughtful suggestions, stayed patient through our delays, and were exceptionally clear in their communication.',
   },
   {
     name: 'David Wanis',
     role: 'Founder',
     project: 'Data & automation project',
-    quote: 'Synitrix kept going until the project worked exactly as specified. Strong technical execution, reliable delivery, and a genuinely helpful partner.',
+    quote: 'Synitix kept going until the project worked exactly as specified. Strong technical execution, reliable delivery, and a genuinely helpful partner.',
   },
   {
     name: 'Muhammad Shahid',

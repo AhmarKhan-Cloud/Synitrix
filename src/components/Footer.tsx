@@ -5,7 +5,7 @@ export default function Footer() {
     <footer>
       <Brand />
       <p className="footer-copy">
-        © {new Date().getFullYear()} Synitrix. Built with intent.
+        © {new Date().getFullYear()} Synitix. Built with intent.
       </p>
       <a className="back-top" href="#top">
         Back to top ↑

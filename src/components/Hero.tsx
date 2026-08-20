@@ -33,7 +33,7 @@ export default function Hero({ go }: HeroProps) {
             next.
           </motion.h1>
           <motion.p variants={fade} className="hero-copy">
-            Synitrix engineers high-impact web platforms, data products, and AI automation that turn complex operational problems into clear digital experiences.
+            Synitix engineers high-impact web platforms, data products, and AI automation that turn complex operational problems into clear digital experiences.
           </motion.p>
           <motion.div variants={fade} className="hero-specialties">
             <span>Web platforms</span>
