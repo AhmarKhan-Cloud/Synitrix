@@ -1,19 +1,90 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
-import { ArrowDownRight, ArrowUpRight, BrainCircuit, Check, ChevronLeft, ChevronRight, Code2, Database, Eye, Menu, Moon, Network, ScanLine, Send, Sparkles, Star, Sun, X } from 'lucide-react';
-import { supabase } from './lib/supabase';
-import { FaLinkedinIn, FaWhatsapp } from 'react-icons/fa6';
-import { SiGmail } from 'react-icons/si';
-type Project={title:string;kind:string;blurb:string;stack:string[];overview:string;components:string[];features:string[];visual:string;url?:string};
-const services=[['Web development',Code2,'From a crisp landing page to a full product platform, we create quick, inclusive web experiences that make brands useful.',['React & Next.js','JavaScript','TypeScript','UI engineering']],['Database & data engineering',Database,'We architect the reliable data layer that lets every team, workflow, and application work from the same truth.',['MongoDB','PostgreSQL','ETL pipelines','Analytics']],['AI & machine learning',BrainCircuit,'Useful, carefully integrated intelligence—built around the outcomes your people and customers actually need.',['LLM integrations','Machine learning','Deep learning','AI automation']],['Computer vision & OCR',Eye,'We turn visual information into a dependable part of your business process.',['Object detection','OCR pipelines','Document AI','OpenCV']],['Backend & APIs',Network,'The secure, scalable engines that keep your product fast, connected, and ready to grow.',['Node.js','Python','REST APIs','Cloud services']],['Web scraping',ScanLine,'Structured intelligence, collected with resilience and delivered exactly where you need it.',['Playwright','Python','Proxy systems','Data delivery']]] as const;
-const projects:Project[]=[{title:'University Admission Assistance & Management System',kind:'Education platform',blurb:'A clear, end-to-end admission experience for students, advisors, and university teams.',stack:['React','Node.js','MongoDB'],visual:'admission',overview:'UAAMS brings enquiries, applications, documentation and counselling into one coordinated workspace—making the path to enrolment easier to understand and manage.',components:['Applicant portal','Admissions dashboard','Document workflow','Role-based access'],features:['Application status tracking','Automated follow-ups','Centralised document collection','Actionable reporting']},{title:'Web Scraping Intelligence',kind:'Data product',blurb:'Reliable collection pipelines that turn scattered web data into decision-ready intelligence.',stack:['Python','Playwright','MongoDB'],visual:'scrape',overview:'A configurable data-collection system built to gather, validate and deliver structured web intelligence without manual effort.',components:['Crawler orchestration','Data normalisation','Proxy handling','Delivery API'],features:['Scheduled collection','Duplicate detection','Source monitoring','Export-ready datasets']},{title:'Sanitary Solutions',kind:'Commerce experience',blurb:'A polished product discovery experience designed around confidence and conversion.',stack:['React','TypeScript','Node.js'],visual:'sanitary',overview:'Sanitary Solutions is a modern product platform that helps customers browse, compare and enquire with ease while giving the business a flexible digital storefront.',components:['Product catalogue','Search and filtering','Lead capture','Content management'],features:['Responsive browsing','Product comparison','Fast enquiry paths','Content performance']},{title:'ShuttlePro',kind:'Transport technology',blurb:'A streamlined transport experience that makes every route feel considered and connected.',stack:['React','API Integration','UX Design'],visual:'shuttle',url:'https://shuttlepro.io/',overview:'A customer-first shuttle platform focused on making movement simpler—from discovering services through booking and staying informed.',components:['Route experience','Booking flow','Service information','Responsive interface'],features:['Clear route discovery','Mobile-first booking','Live service touchpoints','Conversion-led design']}];
-const reviews=[{name:'Mustapha Yakubu',role:'CEO, Careerli',project:'AI resume platform',quote:'Working with Synitix was pleasant from start to finish. They made thoughtful suggestions, stayed patient through our delays, and were exceptionally clear in their communication.'},{name:'David Wanis',role:'Founder',project:'Data & automation project',quote:'Synitix kept going until the project worked exactly as specified. Strong technical execution, reliable delivery, and a genuinely helpful partner.'},{name:'Muhammad Shahid',role:'Technical Lead',project:'AI data scraping',quote:'A great experience. The team brought strong technical skills and delivered quality results on our AI-driven data scraping project.'}];const ticker=['Web Development','Data Engineer','Data Scientist','Scraping','MongoDB','Machine Learning','Deep Learning','Computer Vision','AI Automation'];const fade={hidden:{opacity:0,y:22},visible:{opacity:1,y:0}};
-function Brand(){return <a href="#top" className="brand"><svg viewBox="0 0 36 36"><path d="M6 9.5 18 3l12 6.5v13L18 29 6 22.5z"/><path d="m10 12 8 4.5 8-4.5M18 16.5V25"/></svg><span>synitix</span></a>};function ProjectVisual({type}:{type:string}){return <div className={`project-visual ${type}`}><div className="visual-orb"/><div className="visual-window"><i/><i/><i/><b/></div></div>}
-export default function App(){const[openProject,setOpenProject]=useState<Project|null>(null),[menuOpen,setMenuOpen]=useState(false),[sent,setSent]=useState(false),[theme,setTheme]=useState<'dark'|'light'>('dark'),[review,setReview]=useState(0);const cursorX=useMotionValue(-200),cursorY=useMotionValue(-200),x=useSpring(cursorX,{damping:38,stiffness:220}),y=useSpring(cursorY,{damping:38,stiffness:220});useEffect(()=>{const move=(e:MouseEvent)=>{cursorX.set(e.clientX-185);cursorY.set(e.clientY-185)};window.addEventListener('mousemove',move);return()=>window.removeEventListener('mousemove',move)},[cursorX,cursorY]);useEffect(()=>{document.body.style.overflow=openProject?'hidden':'';return()=>{document.body.style.overflow=''}},[openProject]);useEffect(()=>{const id=setInterval(()=>setReview(r=>(r+1)%reviews.length),6500);return()=>clearInterval(id)},[]);const go=(id:string)=>{setMenuOpen(false);document.querySelector(id)?.scrollIntoView({behavior:'smooth'})};async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();const f=new FormData(e.currentTarget);try{await supabase.from('contact_submissions').insert({name:f.get('name'),email:f.get('email'),contact_number:'Not provided',message:`Subject: ${f.get('subject')}\n\n${f.get('message')}`})}catch{}setSent(true);e.currentTarget.reset()}const activeReview=reviews[review];return <main id="top" className={`theme-${theme}`}><div className="ambient-field"><i/><i/><i/><i/></div><motion.div className="cursor-glow" style={{x,y}}/><header className="site-header"><Brand/><nav><button onClick={()=>go('#about')}>About</button><button onClick={()=>go('#services')}>Expertise</button><button onClick={()=>go('#work')}>Work</button></nav><div className="header-actions"><button aria-label="Change colour theme" className="theme-switch" onClick={()=>setTheme(theme==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={16}/>:<Moon size={16}/>}</button><button className="header-contact" onClick={()=>go('#contact')}>Let’s talk <ArrowUpRight size={15}/></button></div><button className="mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X/>:<Menu/>}</button></header><AnimatePresence>{menuOpen&&<motion.div className="mobile-nav" initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}}>{['#about','#services','#work','#contact'].map(x=><button key={x} onClick={()=>go(x)}>{x.slice(1)}</button>)}<button onClick={()=>setTheme(theme==='dark'?'light':'dark')}>Switch theme</button></motion.div>}</AnimatePresence>
-<section className="hero"><div className="hero-art"><span/><span/><span/></div><motion.div initial="hidden" animate="visible" transition={{staggerChildren:.12}} className="hero-inner"><motion.p variants={fade} className="eyebrow"><span/>Independent digital studio · Pakistan / Worldwide</motion.p><motion.h1 variants={fade}>Engineering <em>what’s</em><br/>next.</motion.h1><motion.p variants={fade} className="hero-copy">Synitix shapes ambitious ideas into precise digital systems—web platforms, data products, and practical AI built to make work move.</motion.p><motion.div variants={fade} className="hero-actions"><button className="button primary" onClick={()=>go('#work')}>Explore our work <ArrowDownRight size={18}/></button><a className="text-link" href="https://wa.me/923116234603" target="_blank">Start a conversation <ArrowUpRight size={16}/></a></motion.div></motion.div><div className="hero-bottom"><span>Scroll to explore</span><div className="scroll-line"/><span>01 — 05</span></div></section><div className="ticker"><div>{[...ticker,...ticker].map((item,i)=><span key={i}>{item}<b>✦</b></span>)}</div></div>
-<section id="about" className="section about"><motion.div initial="hidden" whileInView="visible" viewport={{once:true}} transition={{staggerChildren:.12}} className="section-intro"><motion.p variants={fade} className="eyebrow">01 / Who we are</motion.p><motion.h2 variants={fade}>A small team with a <em>wide</em> field of view.</motion.h2><motion.div variants={fade} className="about-copy"><p>We’re a technology partner for people who value clarity over noise. From the first thought to a resilient product, our work combines curiosity, strong engineering, and an eye for the experience on the other side of the screen.</p><a className="text-link" href="#contact">Meet the team <ArrowUpRight size={16}/></a></motion.div></motion.div><div className="stat-row"><div><strong>01</strong><span>Connected team</span></div><div><strong>∞</strong><span>Ideas in motion</span></div><div><strong>7+</strong><span>Core disciplines</span></div></div></section>
-<section id="services" className="section expertise"><div className="section-heading"><p className="eyebrow">02 / Our expertise</p><h2>Capabilities for the <em>complex.</em></h2><p>One integrated team, each discipline working together to move an idea all the way through.</p></div><div className="service-cards">{services.map(([title,Icon,copy,skills],i)=><motion.article className="service-card" key={title} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.07}}><div className="service-top"><span>0{i+1}</span><Icon/><ArrowUpRight/></div><h3>{title}</h3><p>{copy}</p><div className="skill-tags">{skills.map(s=><i key={s}>{s}</i>)}</div></motion.article>)}</div></section>
-<section id="work" className="section work"><div className="section-heading"><p className="eyebrow">03 / Selected work</p><h2>Built for <em>real</em> momentum.</h2><p>Every collaboration begins with a problem worth solving.</p></div><div className="project-grid">{projects.map((p,i)=><motion.button key={p.title} className="project-card" onClick={()=>setOpenProject(p)} initial={{opacity:0,y:25}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.08}}><ProjectVisual type={p.visual}/><div className="project-meta"><span>{p.kind}</span><ArrowUpRight size={18}/></div><h3>{p.title}</h3><p>{p.blurb}</p><div className="tags">{p.stack.map(t=><i key={t}>{t}</i>)}</div></motion.button>)}</div></section>
-<section className="section testimonials"><div className="testimonials-head"><p className="eyebrow">04 / In their words</p><h2>Trusted by people who <em>care.</em></h2><div className="review-controls"><button onClick={()=>setReview((review+reviews.length-1)%reviews.length)}><ChevronLeft/></button><span>0{review+1} / 0{reviews.length}</span><button onClick={()=>setReview((review+1)%reviews.length)}><ChevronRight/></button></div></div><div className="review-stage"><AnimatePresence mode="wait"><motion.article key={review} className="review-card" initial={{opacity:0,x:50}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-50}} transition={{duration:.38}}><div className="stars">{[1,2,3,4,5].map(s=><Star key={s} fill="currentColor" size={16}/>)}</div><blockquote>“{activeReview.quote}”</blockquote><div className="review-person"><div>{activeReview.name.split(' ').map(x=>x[0]).join('')}</div><span><b>{activeReview.name}</b><br/>{activeReview.role}</span><em>{activeReview.project}</em></div></motion.article></AnimatePresence><div className="review-ghost"><span>Our clients value clear thinking, thoughtful delivery, and a partner who stays involved.</span></div></div></section>
-<section id="contact" className="section contact"><div className="contact-heading"><p className="eyebrow">05 / Get in touch</p><h2>Have a smart<br/><em>problem?</em></h2><p>Tell us where you’re heading. We’ll help find the clearest way forward.</p><div className="contact-links"><a href="https://wa.me/923116234603" target="_blank" rel="noreferrer"><FaWhatsapp/><span><b>WhatsApp</b><em>+92 311 6234603</em></span></a><a href="mailto:anasakram0644@gmail.com"><SiGmail/><span><b>Gmail</b><em>anasakram0644@gmail.com</em></span></a><a href="https://www.linkedin.com/in/anas-akram-butt/" target="_blank" rel="noreferrer"><FaLinkedinIn/><span><b>LinkedIn</b><em>Connect with me</em></span></a></div></div><form className="contact-form" onSubmit={submit}><input name="name" required placeholder="Your name"/><input name="email" type="email" required placeholder="Your email"/><input name="subject" required placeholder="Subject"/><textarea name="message" required placeholder="Your message..." rows={5}/><button className="button primary" type="submit">{sent?<><Check size={18}/>Message received</>:<>Send your message<Send size={16}/></>}</button></form></section><footer><Brand/><p className="footer-copy">© {new Date().getFullYear()} Synitix. Built with intent.</p><a className="back-top" href="#top">Back to top ↑</a></footer>
-<AnimatePresence>{openProject&&<motion.div className="modal-backdrop" onClick={()=>setOpenProject(null)} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><motion.article className="project-modal" onClick={e=>e.stopPropagation()} initial={{opacity:0,y:30,scale:.98}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:30,scale:.98}}><button className="close-modal" onClick={()=>setOpenProject(null)}><X/></button><div className="modal-accent"><Sparkles/><span>{openProject.kind}</span></div><h2>{openProject.title}</h2><p className="modal-lead">{openProject.overview}</p><div className="modal-columns"><div><h4>Technical components</h4><ul>{openProject.components.map(x=><li key={x}>{x}</li>)}</ul></div><div><h4>Key features</h4><ul>{openProject.features.map(x=><li key={x}>{x}</li>)}</ul></div></div><div className="modal-tech"><h4>Technologies used</h4><div className="tags">{openProject.stack.map(t=><i key={t}>{t}</i>)}</div>{openProject.url&&<a className="text-link" href={openProject.url} target="_blank" rel="noreferrer">Visit project <ArrowUpRight size={16}/></a>}</div></motion.article></motion.div>}</AnimatePresence></main>}
+import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Project } from './types';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import AboutSection from './components/AboutSection';
+import ExpertiseSection from './components/ExpertiseSection';
+import WorkSection from './components/WorkSection';
+import TestimonialsSection from './components/TestimonialsSection';
+import ContactSection from './components/ContactSection';
+import Footer from './components/Footer';
+import ProjectModal from './components/ProjectModal';
+import { reviewsData } from './data/portfolioData';
+
+export default function App() {
+  const [openProject, setOpenProject] = useState<Project | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [review, setReview] = useState(0);
+
+  const cursorX = useMotionValue(-200);
+  const cursorY = useMotionValue(-200);
+  const x = useSpring(cursorX, { damping: 38, stiffness: 220 });
+  const y = useSpring(cursorY, { damping: 38, stiffness: 220 });
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      cursorX.set(e.clientX - 185);
+      cursorY.set(e.clientY - 185);
+    };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, [cursorX, cursorY]);
+
+  useEffect(() => {
+    document.body.style.overflow = openProject ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [openProject]);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setReview((r) => (r + 1) % reviewsData.length),
+      6500
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  const go = (id: string) => {
+    setMenuOpen(false);
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <main id="top" className={`theme-${theme}`}>
+      <div className="ambient-field">
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      <motion.div className="cursor-glow" style={{ x, y }} />
+
+      <Header
+        theme={theme}
+        setTheme={setTheme}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        go={go}
+      />
+
+      <Hero go={go} />
+
+      <AboutSection />
+
+      <ExpertiseSection />
+
+      <WorkSection setOpenProject={setOpenProject} />
+
+      <TestimonialsSection review={review} setReview={setReview} />
+
+      <ContactSection />
+
+      <Footer />
+
+      <ProjectModal openProject={openProject} onClose={() => setOpenProject(null)} />
+    </main>
+  );
+}
